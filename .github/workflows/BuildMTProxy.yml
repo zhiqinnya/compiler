@@ -8,8 +8,7 @@ jobs:
 
     steps:
     - name: Install dependences
-      run: |
-        sudo apt install git curl build-essential libssl-dev zlib1g-dev
+      run: sudo apt install git curl build-essential libssl-dev zlib1g-dev
     
     - name: Clone TelegramMessager/MTProxy
       run: git clone https://github.com/TelegramMessenger/MTProxy
@@ -17,7 +16,7 @@ jobs:
     - name: Build MTProxy
       run: |
         cd MTProxy
-        make
+        make CFLAGS="-fcommon"
     
     - name: Upload artifact
       uses: actions/upload-artifact@v4
