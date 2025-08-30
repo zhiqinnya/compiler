@@ -1,0 +1,25 @@
+name: Build MTProxy
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-lastet
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install dependences
+      run: |
+        apt install git curl build-essential libssl-dev zlib1g-dev
+    
+    - name: Build MTProxy
+      run: |
+        cd MTProxy
+        make
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: mtproto-proxy
+        path: objs/
