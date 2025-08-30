@@ -12,7 +12,7 @@ jobs:
 
     - name: Install dependences
       run: |
-        apt install git curl build-essential libssl-dev zlib1g-dev
+        sudo apt install git curl build-essential libssl-dev zlib1g-dev
     
     - name: Build MTProxy
       run: |
