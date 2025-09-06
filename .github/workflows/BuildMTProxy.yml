@@ -16,7 +16,7 @@ jobs:
     - name: Build MTProxy
       run: |
         cd MTProxy
-        make CFLAGS="-fcommon -mpclmul -msse2 -msse4.2"
+        make CFLAGS="-fcommon $(ARCH) -O3 -std=gnu11 -Wall -mpclmul -march=core2 -mfpmath=sse -mssse3 -fno-strict-aliasing -fno-strict-overflow -fwrapv -DAES=1 -DCOMMIT=\"${COMMIT}\" -D_GNU_SOURCE=1 -D_FILE_OFFSET_BITS=64"
     
     - name: Upload artifact
       uses: actions/upload-artifact@v4
