@@ -1,0 +1,32 @@
+name: Build OpenSSL 3.x
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential perl wget
+
+      - name: Download OpenSSL
+        run: |
+          wget https://www.openssl.org/source/openssl-3.0.12.tar.gz
+          tar -xzf openssl-3.0.12.tar.gz
+          mv openssl-3.0.12 openssl
+
+      - name: Build OpenSSL
+        run: |
+          cd openssl
+          ./Configure linux-x86_64 --prefix=$GITHUB_WORKSPACE/openssl-install --openssldir=$GITHUB_WORKSPACE/openssl-install no-shared
+          make -j$(nproc)
+          make install_sw
+
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: openssl-binary
+          path: openssl-install/
