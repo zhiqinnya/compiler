@@ -16,7 +16,6 @@ jobs:
       - name: Build Claudix
         run: |
           npm install pnpm -g
-          pnpm install
           pnpm build 
           pnpm package
 
